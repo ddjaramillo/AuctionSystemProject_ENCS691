@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "Title": "Antique Vase",
+    "Description": "A beautiful antique vase from the 19th century.",
+    "CurrentBid": 150.0,
+    "StartDate": "2024-12-01T09:00:00",
+    "EndDate": "2024-12-10T18:00:00",
+    "ImageUrl": "/images/vase.jpg"
+  },
+  {
+    "Id": 2,
+    "Title": "Vintage Watch",
+    "Description": "Classic vintage wristwatch in perfect working condition.",
+    "CurrentBid": 200.0,
+    "StartDate": "2024-12-02T12:00:00",
+    "EndDate": "2024-12-12T18:00:00",
+    "ImageUrl": "/images/vase.jpg"
+  },
+  {
+    "Id": 3,
+    "Title": "Signed Baseball",
+    "Description": "Baseball signed by a famous athlete.",
+    "CurrentBid": 300.0,
+    "StartDate": "2024-12-03T15:00:00",
+    "EndDate": "2024-12-15T18:00:00",
+    "ImageUrl": "/images/vase.jpg"
+  },
+  {
+    "Id": 4,
+    "Title": "Rare Book",
+    "Description": "A first edition of a rare and popular book.",
+    "CurrentBid": 500.0,
+    "StartDate": "2024-12-04T10:00:00",
+    "EndDate": "2024-12-14T18:00:00",
+    "ImageUrl": "/images/vase.jpg"
+  },
+  {
+    "Id": 5,
+    "Title": "Painting",
+    "Description": "An original painting by a well-known artist.",
+    "CurrentBid": 1000.0,
+    "StartDate": "2024-12-05T11:00:00",
+    "EndDate": "2024-12-20T18:00:00",
+    "ImageUrl": "/images/vase.jpg"
+  }
+]

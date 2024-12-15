@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using BlazorAuctionSystemProject.Models
+@using System.Net.Http.Json
+
+@page "/my-auctions"
+
+@attribute [Authorize]
+
+
+<h3 class="mb-4">My Auctions</h3>
+
+<div>
+    @if (auctionItems == null)
+    {
+        <p>Loading your auctions...</p>
+    }
+    else if (auctionItems.Count() == 0)
+    {
+        <p>You don't have any auctions listed.</p>
+    }
+    else
+    {
+        <div class="album py-3 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    @foreach (var item in auctionItems)
+                    {
+                        <div class="col">
+                            <div class="card shadow-sm h-100">
+                                <img src="@item.ImageUrl" class="bd-placeholder-img card-img-top" alt="@item.Title" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Title</h5>
+                                    <p class="card-text">@item.Description</p>
+                                    <ul class="list-unstyled mb-3">
+                                        <li><strong>Current Bid:</strong> $@item.CurrentBid</li>
+                                        <li><strong>Starts:</strong> @item.StartDate.ToShortDateString()</li>
+                                        <li><strong>Ends:</strong> @item.EndDate.ToShortDateString()</li>
+                                    </ul>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="() => NavigateToDetails(item.Id)">View Details</button>
+                                        <small class="text-muted">@DaysLeft(item.EndDate) days left</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    private List<AuctionItem>? auctionItems;
+    private const string? RequestUri = "sample-data/MockAuctionItems.json";
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    public MyAuctions(NavigationManager navigationManager)
+    {
+        NavigationManager = navigationManager;
+    }
+
+    private void NavigateToDetails(int id)
+    {
+        NavigationManager.NavigateTo($"/auction-details/{id}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            auctionItems = await Http.GetFromJsonAsync<List<AuctionItem>>(RequestUri);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading auction data: {ex.Message}");
+            auctionItems = new List<AuctionItem>();
+        }
+    }
+
+    [Inject]
+    private HttpClient? Http { get; set; }
+
+    private int DaysLeft(DateTime endDate) => (endDate - DateTime.Now).Days;
+    private int MinutesLeft(DateTime endDate) => (endDate - DateTime.Now).Minutes;
+    private int SecondsLeft(DateTime endDate) => (endDate - DateTime.Now).Seconds;
+
+
+    // private AuctionItem[]? auctionItems;
+
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     // Mock data
+    //     auctionItems = await Http.GetFromJsonAsync<AuctionItem[]>("sample-data/MockAuctionItems.json");
+    // }
+}
